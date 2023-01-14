@@ -25,7 +25,7 @@ router.post('/api/v1/signup', async (req, res) => {
     profile_picture,
   } = req.body;
 
-  const [id] = await knex.table('users').select('id').where({ username });
+  const [id] = await knex.table('users').select('id').where({ email });
 
   if (!id) {
     const [user] = await knex.table('users').insert({
@@ -135,19 +135,41 @@ router.delete('/api/v1/user/:id', authenticateToken, async (req, res) => {
 });
 
 router.post('/api/v1/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  const [user] = await knex.table('users').where({ username });
+  const [user] = await knex.table('users').where({ email });
+
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
   if (bcrypt.compareSync(password, user.password)) {
-    const token = generateAccessToken(username);
-    console.log(token);
+    const token = generateAccessToken(email);
 
     return res.status(201).json({ token: token });
   } else {
     return res.status(401).json({ message: 'Invalid Credentials' });
+  }
+});
+
+router.get('/api/v1/:username', async (req, res) => {
+  const { username } = req.params;
+
+  const [me] = await knex
+    .table('users')
+    .select(
+      'id',
+      'email',
+      'username',
+      'fullname',
+      'phone_number',
+      'profile_picture'
+    )
+    .where({ username });
+
+  if (me) {
+    return res.status(200).json({ me });
+  } else {
+    return null;
   }
 });
 
