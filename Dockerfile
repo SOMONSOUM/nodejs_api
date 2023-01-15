@@ -1,0 +1,15 @@
+FROM node:16.14.0
+
+ARG MYSQL_DEFAULT
+ARG TOKEN_SECRET
+ENV MYSQL_DEFAULT=$MYSQL_DEFAULT
+ENV TOKEN_SECRET=$TOKEN_SECRET
+
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN yarn install
+COPY . .
+RUN yarn build
+
+EXPOSE 80
+CMD [ "yarn", "start" ]
