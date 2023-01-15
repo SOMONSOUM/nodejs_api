@@ -7,9 +7,10 @@
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "outDir": "./dist"
   },
-  "include": ["src", "migrations"],
+  "include": ["src", "src/database/migrations"],
   "typeAcquisition": {
     "include": ["jest"]
   },

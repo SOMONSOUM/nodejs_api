@@ -9,9 +9,9 @@
   "private": true,
   "scripts": {
     "prettier": "prettier --write server.ts",
-    "dev": "nodemon --exec ts-node server.ts",
+    "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
-    "start": "node build/index.js"
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -2,7 +2,7 @@ import express from 'express';
 import { config } from 'dotenv';
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
-import router from './src/routers/router';
+import router from './routers/router';
 config();
 
 const app = express();
