@@ -2,8 +2,10 @@ FROM node:16.14.0
 
 ARG MYSQL_DEFAULT
 ARG TOKEN_SECRET
+ARG PORT
 ENV MYSQL_DEFAULT=$MYSQL_DEFAULT
 ENV TOKEN_SECRET=$TOKEN_SECRET
+ENV PORT=$PORT
 
 WORKDIR /usr/src/app
 COPY package*.json ./
@@ -11,5 +13,5 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
-EXPOSE 80
+EXPOSE ${PORT}
 CMD [ "yarn", "start" ]
