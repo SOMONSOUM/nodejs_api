@@ -20,7 +20,5 @@ app.get('/', (req, res) => {
 });
 
 app
-  .listen(PORT, () =>
-    console.log(`🚀Server started on http://localhost:${PORT}`)
-  )
+  .listen(PORT, () => console.log(`🚀Server started on http://0.0.0.0:${PORT}`))
   .on('error', (err: any) => console.log(err));
