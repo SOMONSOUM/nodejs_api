@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import createKnexContext from '../../../lib/CreateKnexContext';
 import bcrypt from 'bcryptjs';
-import { generateAccessToken } from '../../../lib/jwt';
-import { UserModel } from '../../models/user';
 
 const knex = createKnexContext().default;
 
@@ -29,7 +27,7 @@ const Me = async (req: Request, res: Response) => {
 };
 
 const UserList = async (req: Request, res: Response) => {
-  const users: UserModel[] = await knex
+  const users = await knex
     .table('users')
     .select(
       'id',
