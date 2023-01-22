@@ -14,10 +14,10 @@ const router = Router();
 
 router.post('/api/v1/signup', SigninUserController);
 router.post('/api/v1/login', LoginUserController);
-router.put('/api/v1/user/:id', authenticateToken, UpdateUser);
-router.get('/api/v1/:username', authenticateToken, Me);
-router.get('/api/v1/users', authenticateToken, UserList);
-router.get('/api/v1/user/:id', authenticateToken, GetUser);
-router.delete('/api/v1/user/:id', authenticateToken, RemoveUser);
+router.put('/api/v1/user/:id', UpdateUser);
+router.get('/api/v1/:username', Me);
+router.get('/api/v1/users', UserList);
+router.get('/api/v1/user/:id', GetUser);
+router.delete('/api/v1/user/:id', RemoveUser);
 
 export default router;
