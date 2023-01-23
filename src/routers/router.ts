@@ -1,23 +1,23 @@
 import { Router } from 'express';
-import { authenticateToken } from '../lib/jwt';
-import {
-  GetUser,
-  Me,
-  RemoveUser,
-  UpdateUser,
-  UserList,
-} from '../../src/app/controllers/user/UserController';
-import { SigninUserController } from '../../src/app/controllers/authentication/SignupController';
-import { LoginUserController } from '../../src/app/controllers/authentication/SigninController';
+import { authenticateToken } from '../lib/JWT';
+import validator from '../lib/Validator';
+import { userSchema } from '../app/schema/UserSchema';
+import { SignupMutation } from '../app/resolvers/Authentication/Mutation/SignupMutation';
+import { LoginMutation } from '../app/resolvers/Authentication/Mutation/SigninMutation';
+import { MeQuery } from '../app/resolvers/Authentication/Query/MeQuery';
+import { UpdateUserMutation } from '../app/resolvers/User/Mutation/UpdateUserMutation';
+import { UserListQuery } from '../app/resolvers/User/Query/UserListQuery';
+import { UserQuery } from '../app/resolvers/User/Query/UserQuery';
+import { RemoveUserMuation } from '../app/resolvers/User/Mutation/RemoveUserMutation';
 
 const router = Router();
 
-router.post('/api/v1/signup', SigninUserController);
-router.post('/api/v1/login', LoginUserController);
-router.put('/api/v1/user/:id', UpdateUser);
-router.get('/api/v1/:username', Me);
-router.get('/api/v1/users', UserList);
-router.get('/api/v1/user/:id', GetUser);
-router.delete('/api/v1/user/:id', RemoveUser);
+router.post('/api/v1/signup', validator(userSchema), SignupMutation);
+router.post('/api/v1/login', validator(userSchema), LoginMutation);
+router.get('/api/v1/users', UserListQuery);
+router.get('/api/v1/:username', MeQuery);
+router.put('/api/v1/user/:id', UpdateUserMutation);
+router.get('/api/v1/user/:id', UserQuery);
+router.delete('/api/v1/user/:id', RemoveUserMuation);
 
 export default router;

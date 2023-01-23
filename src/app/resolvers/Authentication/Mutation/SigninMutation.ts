@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
-import createKnexContext from '../../../lib/CreateKnexContext';
+import createKnexContext from '../../../../lib/CreateKnexContext';
 import bcrypt from 'bcryptjs';
-import { generateAccessToken } from '../../../lib/jwt';
+import { generateAccessToken } from '../../../../lib/JWT';
+import { SigninInput } from '../../../schema/UserSchema';
+
 const knex = createKnexContext().default;
 
-const LoginUserController = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+const LoginMutation = async (req: Request, res: Response) => {
+  const { email, password } = req.body as SigninInput;
 
   const [user] = await knex.table('users').where({ email });
 
@@ -21,4 +23,4 @@ const LoginUserController = async (req: Request, res: Response) => {
   }
 };
 
-export { LoginUserController };
+export { LoginMutation };
