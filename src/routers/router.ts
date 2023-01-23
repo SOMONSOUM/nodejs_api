@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { authenticateToken } from '../lib/JWT';
+import { authenticateToken } from '../lib/jwt';
 import validator from '../lib/Validator';
 import { userSchema } from '../app/schema/UserSchema';
 import { SignupMutation } from '../app/resolvers/Authentication/Mutation/SignupMutation';

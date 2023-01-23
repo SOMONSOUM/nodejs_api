@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import createKnexContext from '../../../../lib/CreateKnexContext';
 import bcrypt from 'bcryptjs';
-import { generateAccessToken } from '../../../../lib/JWT';
+import { generateAccessToken } from '../../../../lib/jwt';
 import { SigninInput } from '../../../schema/UserSchema';
 
 const knex = createKnexContext().default;
