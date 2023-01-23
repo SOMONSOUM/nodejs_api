@@ -1,35 +1,42 @@
 import { Request, Response } from 'express';
-import createKnexContext from '../../../lib/CreateKnexContext';
 import bcrypt from 'bcryptjs';
-import { generateAccessToken } from '../../../lib/jwt';
+import createKnexContext from '../../../../lib/CreateKnexContext';
+import { SignupInput } from '../../../schema/UserSchema';
+import { generateAccessToken } from '../../../../lib/JWT';
 
 const knex = createKnexContext().default;
 
-const SigninUserController = async (req: Request, res: Response) => {
+const SignupMutation = async (req: Request, res: Response) => {
   const {
     email,
     password,
     username,
+    phoneNumber,
+    profilePicture,
     fullname,
-    phone_number,
-    profile_picture,
-  } = req.body;
+  } = req.body as SignupInput;
 
   const [id] = await knex.table('users').select('id').where({ email });
-
   if (!id) {
     const [user] = await knex.table('users').insert({
       email: email,
       password: password ? bcrypt.hashSync(password, 12) : undefined,
       username,
       fullname,
-      phone_number,
-      profile_picture,
+      phone_number: phoneNumber,
+      profile_picture: profilePicture,
     });
     if (user) {
       const token = generateAccessToken(username);
       return res.status(201).json({
-        user: { email, username, fullname, phone_number, profile_picture },
+        user: {
+          email,
+          password,
+          username,
+          phoneNumber,
+          profilePicture,
+          fullname,
+        },
         token: token,
       });
     } else {
@@ -40,4 +47,4 @@ const SigninUserController = async (req: Request, res: Response) => {
   }
 };
 
-export { SigninUserController };
+export { SignupMutation };
