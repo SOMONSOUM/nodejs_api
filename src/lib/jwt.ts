@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 config();
 
-export const generateAccessToken = (username?: string, user_id?: number) => {
-  return jwt.sign({ username, user_id }, process.env.TOKEN_SECRET, {
+export const generateAccessToken = (email?: string, user_id?: number) => {
+  return jwt.sign({ email, user_id }, process.env.TOKEN_SECRET, {
     expiresIn: '7d',
   });
 };
@@ -21,8 +21,6 @@ export const authenticateToken = (req, res, next) => {
     token,
     process.env.TOKEN_SECRET as string,
     (err: any, user: any) => {
-      console.log(err);
-
       if (err) return res.status(403).json({ message: 'Unauthorize' });
 
       req.user = user;
