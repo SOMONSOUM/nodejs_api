@@ -27,7 +27,7 @@ const SignupMutation = async (req: Request, res: Response) => {
       profile_picture: profilePicture,
     });
     if (user) {
-      const token = generateAccessToken(username);
+      const token = generateAccessToken(email);
       return res.status(201).json({
         user: {
           email,
