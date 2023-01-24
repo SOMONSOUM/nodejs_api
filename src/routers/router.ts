@@ -14,10 +14,10 @@ const router = Router();
 
 router.post('/api/v1/signup', validator(userSchema), SignupMutation);
 router.post('/api/v1/login', validator(userSchema), LoginMutation);
-router.get('/api/v1/users', UserListQuery);
-router.get('/api/v1/:username', MeQuery);
-router.put('/api/v1/user/:id', UpdateUserMutation);
-router.get('/api/v1/user/:id', UserQuery);
-router.delete('/api/v1/user/:id', RemoveUserMuation);
+router.get('/api/v1/users', authenticateToken, UserListQuery);
+router.get('/api/v1/:username', authenticateToken, MeQuery);
+router.put('/api/v1/user/:id', authenticateToken, UpdateUserMutation);
+router.get('/api/v1/user/:id', authenticateToken, UserQuery);
+router.delete('/api/v1/user/:id', authenticateToken, RemoveUserMuation);
 
 export default router;
