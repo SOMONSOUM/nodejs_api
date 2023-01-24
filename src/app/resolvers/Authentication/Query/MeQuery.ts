@@ -4,7 +4,7 @@ import createKnexContext from '../../../../lib/CreateKnexContext';
 const knex = createKnexContext().default;
 
 const MeQuery = async (req: Request, res: Response) => {
-  const { username } = req.params;
+  const { email } = req.params;
 
   const [me] = await knex
     .table('users')
@@ -16,7 +16,7 @@ const MeQuery = async (req: Request, res: Response) => {
       'phone_number as phoneNumber',
       'profile_picture as profilePicture'
     )
-    .where({ username });
+    .where({ email });
 
   if (me) {
     return res.status(200).json({ me });
