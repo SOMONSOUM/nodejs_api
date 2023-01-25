@@ -17,7 +17,7 @@ const UserListQuery = async (req: Request, res: Response) => {
     .orderBy('id', 'asc');
 
   if (users) {
-    return res.status(200).json({ data: users });
+    return res.status(200).json({ users: users });
   } else {
     throw new Error('Failed to get users');
   }
