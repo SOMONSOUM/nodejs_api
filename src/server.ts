@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(cors({ origin: '*' }));
 
 // routes setup
-app.use(router);
+app.use('/api/v1', router);
 
 app.get('/', (req, res) => {
   res.send(`<h1 style='text-align: center; color:blue;'> Welcome to API!</h1>`);
