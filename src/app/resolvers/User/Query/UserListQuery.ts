@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import createKnexContext from '../../../../lib/CreateKnexContext';
 
-const knex = createKnexContext().default;
-
 const UserListQuery = async (req: Request, res: Response) => {
+  const knex = createKnexContext().default;
   const users = await knex
     .table('users')
     .select(
