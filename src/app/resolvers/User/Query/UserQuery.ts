@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import createKnexContext from '../../../../lib/CreateKnexContext';
-
-const knex = createKnexContext().default;
+import { User } from '../../../schema/UserSchema';
 
 const UserQuery = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const knex = createKnexContext().default;
+  const { id } = req.params;
 
-  const [user] = await knex
+  const [user]: User[] = await knex
     .table('users')
     .select(
       'id',
@@ -18,10 +18,20 @@ const UserQuery = async (req: Request, res: Response) => {
     )
     .where({ id });
 
-  if (user) {
-    return res.status(200).json({ user });
+  if (user?.id) {
+    return res.status(200).json({
+      status: true,
+      user: {
+        id: user?.id,
+        email: user?.email,
+        username: user?.username,
+        fullname: user?.fullname,
+        phoneNumber: user?.phoneNumber,
+        profilePicture: user?.profilePicture,
+      },
+    });
   } else {
-    return res.json({ message: 'Failed to get user' });
+    return res.json({ status: false, message: 'Failed to get user' });
   }
 };
 

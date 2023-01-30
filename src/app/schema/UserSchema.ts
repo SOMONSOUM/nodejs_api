@@ -9,7 +9,6 @@ export const userSchema = yup.object({
 });
 
 export interface SignupInput extends yup.InferType<typeof userSchema> {
-  id?: null | number;
   email?: null | string;
   password?: null | string;
   username?: null | string;
@@ -21,4 +20,29 @@ export interface SignupInput extends yup.InferType<typeof userSchema> {
 export interface SigninInput extends yup.InferType<typeof userSchema> {
   email?: null | string;
   password?: null | string;
+}
+
+export interface Me {
+  id?: null | number;
+  email?: null | string;
+  password?: null | string;
+  username?: null | string;
+  fullname?: null | string;
+  phoneNumber?: null | string;
+  profilePicture?: null | string;
+  token: string;
+  read?: boolean | null;
+  write?: boolean | null;
+  modify?: boolean | null;
+  remove?: boolean | null;
+}
+
+export interface User {
+  id?: null | number;
+  email?: null | string;
+  password?: null | string;
+  username?: null | string;
+  fullname?: null | string;
+  phoneNumber?: null | string;
+  profilePicture?: null | string;
 }
